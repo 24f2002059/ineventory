@@ -1,31 +1,113 @@
-*{
-    margin:0;
-    text-transform: capitalize;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #4361ee;
+    --primary-hover: #3a56d4;
+    --secondary-color: #e2e8f0;
+    --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-#main{
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    color: var(--text-main);
+}
+
+#main {
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(to top, #F7F9FC,#b2c5f3);
-     overflow: hidden;  
+    padding: 2rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#canvas{
-    width: 60%;
-    height: auto;
-    margin: auto;
-    margin-top: 30px;
+#canvas {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
 }
 
-.form-box{
-    border: 1px solid #E2E5EA;
-    width: 350px;
-    height: auto;
-    margin: auto;
-    margin-top: 60px;
-    margin-bottom: 60px;
-    padding: 36px;
-    background-color: #FFFFFF;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.05);
-    border-radius: 14px;
+.form-box {
+    background-color: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    width: 100%;
+}
+
+.form-box h2 {
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+    text-transform: none;
+    letter-spacing: -0.025em;
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.form-control {
+    padding: 0.625rem 0.875rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.form-box p {
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.form-box a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-box a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .form-box {
+        padding: 1.5rem;
+    }
 }

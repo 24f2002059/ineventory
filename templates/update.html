@@ -15,37 +15,57 @@
     <header class="nav">
         <div class="left">
             <img src="/static/icons/manager.png" alt="">
-            <h1><a href="/templates/admin-dashboard.html"></a>Welcome Admin,</h1>
+            <h1>Welcome Admin,</h1>
         </div>
 
         <ul>
-            <li><a href="/admin-dashboard" class="btn btn-danger">back</a></li>
+            <li><a href="{{ url_for('manager') }}" class="btn btn-outline-secondary me-2">Back</a></li>
+            <li class="logout"><a href="{{ url_for('logout') }}">Logout</a></li>
         </ul>
     </header>
 
     <main>
 
-        <h2 class="page-title">Update Product</h2>
-        <form class="item-form" action="/update/{{ product.id }}" method="POST">
-            <label>Product Name</label>
-            <input class="form-control" type="text" value="{{ product.name }}" aria-label="Disabled input example"
-                disabled readonly>
-            <label>Product Category</label>
-            <input type="text" name="category" value="{{ product.category }}">
-            <label>Product Quantity</label>
-            <div class="counter-box">
-                <button type="button" class="minus">-</button>
-                <input type="text" value="{{product.quantity}}" class="count" name="quantity">
-                <button type="button" class="plus">+</button>
-            </div>
-            <label>Product Price</label>
-            <div class="counter-box">
-                <button type="button" class="minus">-</button>
-                <input type="text" value="{{product.amount}}" class="count" name="amount">
-                <button type="button" class="plus">+</button>
-            </div>
-            <input type="submit" value="Submit" class="btn btn-outline-success">
-        </form>
+        <div class="form-card">
+            <h2 class="page-title">Update Product</h2>
+            <form class="item-form" action="/update/{{ product.id }}" method="POST">
+                
+                <div class="form-group mb-3">
+                    <label class="form-label">Product Name (Read Only)</label>
+                    <input class="form-control bg-light" type="text" value="{{ product.name }}" disabled readonly>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="form-label">Category</label>
+                    <input type="text" class="form-control" name="category" value="{{ product.category }}" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Quantity</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-muted"><i class="bi bi-box-seam"></i></span>
+                            <input type="number" class="form-control" name="quantity" value="{{product.quantity}}" min="0" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Price (₹)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-primary">₹</span>
+                            <input type="number" class="form-control" name="amount" value="{{product.amount}}" min="0" step="0.01" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                        Update Product
+                    </button>
+                    <a href="{{ url_for('manager') }}" class="btn btn-link text-muted mt-2">Cancel</a>
+                </div>
+            </form>
+        </div>
     </main>
 </body>
 

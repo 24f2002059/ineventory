@@ -18,56 +18,61 @@
         </div>
 
         <ul>
-            <li><a href="/admin-dashboard" class="btn btn-danger">back</a></li>
+            <li><a href="/admin-dashboard" class="btn btn-outline-secondary me-2">Back</a></li>
+            <li class="logout"><a href="/logout">Logout</a></li>
         </ul>
     </header>
     <main>
 
-        <div class="req-header">
-            <h1>All Requested Products</h1>
+        <div class="req-header d-flex justify-content-between align-items-center mb-4">
+            <h1>Product Requests</h1>
+            <span class="badge bg-primary rounded-pill">{{ all_requests|length }} total</span>
         </div>
 
-        <!-- First Table: Summary -->
-        <table class="table table-striped top-table">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>name</th>
-                    <th>category</th>
-                    <th>Requests</th>
-                    <!-- <th>amount</th> -->
-                    <th>net amount</th>
-                    <th>status</th>
-                    <th>action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for req in all_requests %}
-                <tr>
-                    <td>{{req.id }}</td>
-                    <td>{{req.product.name }}</td>
-                    <td>{{req.product.category }}</td>
-                    <td>{{req.requests}}</td>
-                    <!-- <td>{{req.product.amount}}</td> -->
-                    <td>{{req.requests * req.product.amount }}</td>
-                    <td>{{req.status}}</td>
-                    <td class="action-cell">
-                        <div class="action-buttons">
-                            <form action="/request-status/{{ req.id }}/approve" method="POST">
-                                <input type="submit" value="Approved" class="btn btn-success btn-sm">
-                            </form>
-                            <form action="/request-status/{{ req.id }}/deny" method="POST">
-                                <input type="submit" value="Denied" class="btn btn-danger btn-sm">
-                            </form>
-                        </div>
-                    </td>
-
-                </tr>
-                {% endfor %}
-
-
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th class="px-4">ID</th>
+                        <th>Product Details</th>
+                        <th>Net Amount</th>
+                        <th>Current Status</th>
+                        <th class="text-end px-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for req in all_requests %}
+                    <tr>
+                        <td class="px-4 text-muted">#{{req.id }}</td>
+                        <td>
+                            <div class="fw-bold">{{req.product.name }}</div>
+                            <small class="text-muted">{{req.product.category }} • {{req.requests}} requested</small>
+                        </td>
+                        <td class="fw-medium">₹{{req.requests * req.product.amount }}</td>
+                        <td>
+                            {% if req.status == 'approved' %}
+                                <span class="text-success fw-bold"><i class="bi bi-check-circle"></i> {{req.status}}</span>
+                            {% elif req.status == 'denied' %}
+                                <span class="text-danger fw-bold"><i class="bi bi-x-circle"></i> {{req.status}}</span>
+                            {% else %}
+                                <span class="text-warning fw-bold">{{req.status}}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end px-4">
+                            <div class="d-flex justify-content-end gap-2">
+                                <form action="/request-status/{{ req.id }}/approve" method="POST" class="m-0">
+                                    <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                                </form>
+                                <form action="/request-status/{{ req.id }}/deny" method="POST" class="m-0">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Deny</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </main>
 
 </body>

@@ -60,8 +60,17 @@
                 </p>
 
                 <div class="button-group mt-4">
-                    <a href="/login" class="btn btn-primary btn-lg px-4 me-3">Login</a>
-                    <a href="/register" class="btn btn-outline-primary btn-lg px-4">Register</a>
+                    {% if session.get('user_id') %}
+                        {% if session.get('role') == 'seller' %}
+                            <a href="{{ url_for('manager') }}" class="btn btn-primary btn-lg px-4 me-3">Go to Dashboard</a>
+                        {% else %}
+                            <a href="{{ url_for('user_dashboard', user_id=session['user_id']) }}" class="btn btn-primary btn-lg px-4 me-3">Go to Dashboard</a>
+                        {% endif %}
+                        <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-lg px-4">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg px-4 me-3">Login</a>
+                        <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-lg px-4">Register</a>
+                    {% endif %}
                 </div>
             </div>
         </section>

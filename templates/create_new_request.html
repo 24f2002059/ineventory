@@ -15,37 +15,50 @@
     <header class="nav">
         <div class="left">
             <img src="/static/icons/manager.png" alt="">
-            <h1><a href="/templates/admin-dashboard.html"></a>Welcome {{ user.username }},</h1>
+            <h1>Welcome {{ user.username }},</h1>
         </div>
 
         <ul>
-            <li><a href="/user-dashboard/{{ user.id }}" class="btn btn-danger">back</a></li>
+            <li><a href="{{ url_for('user_dashboard', user_id=user.id) }}" class="btn btn-outline-secondary me-2">Back</a></li>
+            <li class="logout"><a href="{{ url_for('logout') }}">Logout</a></li>
         </ul>
     </header>
 
     <main>
 
-        <h2 class="page-title">Request New Product</h2>
+        <div class="form-card">
+            <h2 class="page-title">Request Product</h2>
 
-        <form class="item-form" action="/create_new_request/{{user.id}}/{{product.id}}" method="POST">
+            <form class="item-form" action="{{ url_for('create_new_request', user_id=user.id, product_id=product.id) }}" method="POST">
 
-            <label>Product Name</label>
-            <input class="form-control" type="text" value="{{ product.name }}" aria-label="Disabled input example"
-                disabled readonly>
-            <label>category Name</label>
-            <input class="form-control" type="text" value="{{ product.category }}" aria-label="Disabled input example"
-                disabled readonly>
+                <div class="mb-3">
+                    <label class="form-label">Product Name</label>
+                    <input class="form-control bg-light" type="text" value="{{ product.name }}" disabled readonly>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    <input class="form-control bg-light" type="text" value="{{ product.category }}" disabled readonly>
+                </div>
 
-            <label>Product Quantity</label>
-            <div class="counter-box">
-                <button type="button" class="minus">-</button>
-                <input type="text" value="0" class="count" name="quantity">
-                <button type="button" class="plus">+</button>
-            </div>
+                <div class="mb-4">
+                    <label class="form-label">Quantity to Request</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light text-muted"><i class="bi bi-cart-plus"></i></span>
+                        <input type="number" class="form-control" value="1" min="1" max="{{ product.quantity }}" name="quantity" required>
+                    </div>
+                    <small class="text-muted">Available stock: {{ product.quantity }} units</small>
+                </div>
 
-            <input type="submit" value="submit" class="btn btn-outline-success">
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                        Confirm Request
+                    </button>
+                    <a href="{{ url_for('user_dashboard', user_id=user.id) }}" class="btn btn-link text-muted mt-2">Cancel</a>
+                </div>
 
-        </form>
+            </form>
+        </div>
 
     </main>
 

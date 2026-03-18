@@ -5,7 +5,7 @@ class User(db.Model):
     username = db.Column(db.String(), nullable=False, unique=True)
     email = db.Column(db.String(), nullable=False, unique=True)
     role = db.Column(db.String(), nullable=False)
-    password = db.Column(db.String(), nullable=False, unique=True)
+    password = db.Column(db.String(), nullable=False)
 
     requests = db.relationship("Requests", backref="user")
 

@@ -20,39 +20,54 @@
 
         <ul>
             <li><a href="/admin-request" class="btn btn-primary">Request</a></li>
-            <li class="logout"><a href="/login">Logout</a></li>
+            <li class="logout"><a href="/logout">Logout</a></li>
         </ul>
     </header>
 
     <main>
 
-        <h2 class="page-title">Add New Product</h2>
+        <div class="form-card">
+            <h2 class="page-title">Add New Product</h2>
 
-        <form class="item-form" action="/add" method="POST">
+            <form class="item-form" action="/add" method="POST">
+                
+                <div class="form-group mb-3">
+                    <label class="form-label">Product Name</label>
+                    <input type="text" class="form-control" placeholder="e.g. Wireless Mouse" name="name" required>
+                </div>
 
-            <label>Product Name</label>
-            <input type="text" placeholder="Enter product name" name="name">
+                <div class="form-group mb-3">
+                    <label class="form-label">Category</label>
+                    <input type="text" class="form-control" placeholder="e.g. Electronics" name="category" required>
+                </div>
 
-            <label>Product Category</label>
-            <input type="text" placeholder="Enter category" name="category">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Quantity</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-muted"><i class="bi bi-box-seam"></i></span>
+                            <input type="number" class="form-control" value="1" min="1" name="quantity" required>
+                        </div>
+                    </div>
 
-            <label>Product Quantity</label>
-            <div class="counter-box">
-                <button type="button" class="minus">-</button>
-                <input type="text" value="1" class="count" name="quantity">
-                <button type="button" class="plus">+</button>
-            </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Price (₹)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light text-primary">₹</span>
+                            <input type="number" class="form-control" value="0" min="0" step="0.01" name="amount" required>
+                        </div>
+                    </div>
+                </div>
 
-            <label>Product Price</label>
-            <div class="counter-box">
-                <button type="button" class="minus">-</button>
-                <input type="text" value="0" class="count" name="amount">
-                <button type="button" class="plus">+</button>
-            </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                        Create Product
+                    </button>
+                    <a href="/admin-dashboard" class="btn btn-link text-muted mt-2">Cancel</a>
+                </div>
 
-            <input type="submit" value="Submit" class="btn btn-outline-success">
-
-        </form>
+            </form>
+        </div>
 
     </main>
 
